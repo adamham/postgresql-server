@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/adamham/postgresql-server.svg?branch=master)](https://travis-ci.org/adamham/postgresql-server)
+
 Role Name
 =========
 
