@@ -1,0 +1,34 @@
+---
+- assert:
+    that: ansible_version.major == 2
+    msg: "This playbook is for Ansible version 2"
+
+- block:
+    - include_vars: RedHat.yml
+    - include: yum-install-pgsql.yml
+  when: ansible_os_family == 'RedHat'
+  tags:
+    - postgresql_yum-install-pacakges
+
+- block:
+    - include_vars: Debian.yml
+    - include: apt-install-pgsql.yml
+  when: ansible_os_family == 'Debian'
+  tags:
+    - postgresql_apt-install-pacakges
+
+- include: configuration.yml
+  tags:
+    - postgresql-server-configuration
+
+- include: users.yml
+  tags:
+    - postgresql_create-users
+
+- include: databases.yml
+  tags:
+    - postgresql_add-databases
+
+- include: user_privileges.yml
+  tags:
+    - postgresql_configure-user-privileges
